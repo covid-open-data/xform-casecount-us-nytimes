@@ -9,17 +9,15 @@ dc <- suppressMessages(readr::read_csv(urls$counties))
 ds <- suppressMessages(readr::read_csv(urls$states))
 
 dc <- dc %>%
-  mutate(fips_state = substr(fips, 1 , 2)) %>%
-  select(fips, fips_state, date, cases, deaths) %>%
-  rename(fips_county = "fips")
-
-dc %>%
-  group_by(fips_county) %>%
-  summarise(dt = min(date))
+  mutate(admin0_code = "US", admin1_code = substr(fips, 1, 2)) %>%
+  select(admin0_code, admin1_code, fips, date, cases, deaths) %>%
+  rename(admin2_code = "fips") %>%
+  filter(!is.na(admin2_code))
 
 ds <- ds %>%
-  select(fips, date, cases, deaths) %>%
-  rename(fips_state = "fips")
+  mutate(admin0_code = "US") %>%
+  select(admin0_code, fips, date, cases, deaths) %>%
+  rename(admin1_code = "fips")
 
 readr::write_csv(dc, "admin2_US.csv")
 readr::write_csv(ds, "admin1_US.csv")
