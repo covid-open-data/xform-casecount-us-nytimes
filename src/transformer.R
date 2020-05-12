@@ -19,5 +19,5 @@ ds <- ds %>%
   select(admin0_code, fips, date, cases, deaths) %>%
   rename(admin1_code = "fips")
 
-readr::write_csv(dc, "admin2_US.csv")
-readr::write_csv(ds, "admin1_US.csv")
+readr::write_csv(dc, "output/admin2_US.csv")
+readr::write_csv(ds, "output/admin1_US.csv")
