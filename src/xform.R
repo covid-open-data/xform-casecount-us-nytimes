@@ -14,7 +14,8 @@ dc <- suppressMessages(readr::read_csv(urls$counties))
 ds <- suppressMessages(readr::read_csv(urls$states))
 
 country <- dc %>%
-  group_by(date) %>%
+  mutate(admin0_code = "US") %>%
+  group_by(admin0_code, date) %>%
   summarise(
     cases = sum(cases, na.rm = TRUE),
     deaths = sum(deaths, na.rm = TRUE))
