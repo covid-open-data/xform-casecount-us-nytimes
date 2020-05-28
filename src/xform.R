@@ -13,6 +13,8 @@ urls <- list(
 dc <- suppressMessages(readr::read_csv(urls$counties))
 ds <- suppressMessages(readr::read_csv(urls$states))
 
+message("Most recent date: ", max(dc$date))
+
 country <- dc %>%
   mutate(admin0_code = "US") %>%
   group_by(admin0_code, date) %>%
