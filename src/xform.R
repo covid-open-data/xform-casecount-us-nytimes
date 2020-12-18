@@ -26,7 +26,8 @@ county <- dc %>%
   mutate(admin0_code = "US", admin1_code = substr(fips, 1, 2)) %>%
   select(admin0_code, admin1_code, fips, date, cases, deaths) %>%
   rename(admin2_code = "fips") %>%
-  filter(!is.na(admin2_code))
+  filter(!is.na(admin2_code)) %>%
+  mutate(deaths = ifelse(is.na(deaths), 0, deaths))
 
 state <- ds %>%
   mutate(admin0_code = "US") %>%
